@@ -1,14 +1,14 @@
 (window.webpackJsonp = window.webpackJsonp || []).push([
     [1],
-    [, function (s, u, e) {
+    [, function (e, s, n) {
         "use strict";
-        e.r(u);
-        e(0);
-        u.default = "subpageA"
-    }, function (s, u, e) {
+        n.r(s);
+        n(0);
+        console.log("pageB"), s.default = "subpageA"
+    }, function (e, s, n) {
         "use strict";
-        e.r(u);
-        e(0);
-        u.default = "subpageB"
+        n.r(s);
+        n(0);
+        s.default = "subpageB"
     }]
 ]);
