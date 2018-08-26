@@ -7,7 +7,7 @@ module.exports = {
     },
     output:{
         path:path.resolve(__dirname,'./dist'),//打包文件的路径
-        filename:'[name].bundle.js',
+        filename:'[name].bundle.js',//打报文件的名字
         chunkFilename:'[name].chunk.js'//生成代码块的名字
     },
     optimization: {
