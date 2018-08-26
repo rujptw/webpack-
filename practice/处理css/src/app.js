@@ -1,6 +1,8 @@
-import './css/base.css'
-import './css/common.css'
+import base from './css/base.css'
+import common from './css/common.css'
 
+let app = document.getElementById('app')
+app.innerHTML = "<div class='"+ base.box +"'></div>"
 //使用useable后的写法
 // import base from './css/base.css'
 // import common from './css/common.css'
@@ -17,8 +19,3 @@ import './css/common.css'
 //         flag = true        
 //     }
 // },200)
-
-
-let app = " i am not app"
-
-console.log(app)
