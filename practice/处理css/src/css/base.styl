@@ -1,0 +1,13 @@
+$bg = orange
+html{
+    background $bg
+}
+.box{
+    /* css-modules引入其他css *,composes:引入的css会优先处理所以要把它放在最前，防止后面的样式被覆盖*/
+    // composes:bigbox from './common.styl'; css-module与预处理语言stylus似乎不能混用
+    width 200px
+    height 200px
+    border 4px
+    background #333
+    
+}

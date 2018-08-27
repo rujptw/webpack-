@@ -14,8 +14,10 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.css$/,
-            use: [{
+            test: /\.styl$/,
+            use: [
+ 
+                {
                     /*☝ */
                     loader: 'style-loader', //2. 将css放入style标签内
                     options: {
@@ -38,7 +40,11 @@ module.exports = {
                         localIdentName:'[path] [name]_[local]_[hash:base64:5]'
                     }
                     //🐷 loader:'file-loader' //打包css为一个文件
+                },
+                {
+                    loader: 'stylus-loader'
                 }
+
             ]
 
         }]
