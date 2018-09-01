@@ -2,7 +2,10 @@
 // 🆘：重要的提示
 let path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //提取为单独的css文件
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); //压缩css文件
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); //压缩css
+const autoPrefixer =require('autoprefixer')()
+const cssNext = require('postcss-cssnext')()
+// const cssNano = require('cssnano')
 module.exports = {
     entry: {
         app: "./src/app.js"
@@ -14,7 +17,8 @@ module.exports = {
         chunkFilename: '[name].chunk.js'
     },
     module: {
-        rules: [{
+        rules: [
+            {
             test: /\.styl$/,
             use: [
                 {
@@ -49,12 +53,37 @@ module.exports = {
                     }
                     //🐷 loader:'file-loader' //打包css为一个文件
                 },
+                //在预编译处理语言前,在css-loader后
+                {
+                    loader:'postcss-loader',
+                    options:{
+                        ident:"postcss",//表明插件是给postcss用的
+                        plugins:[
+                            // autoPrefixer,//被调用后的结果
+                            cssNext,//被调用后的结果
+                            // cssNano
+                        ]
+                    }
+                },
                 {
                     loader: 'stylus-loader'
                 }
 
             ]
 
+        },{//webpack自身压缩js代码不能解决 某些第三方库tree shaking的问题，要引入另外的loader，来实现tree shaking
+            //TODO: 打包错误，还需调试
+            test:/\.js$/,
+            use:[
+                {
+                    loader:'babel-loader',
+                    options:{
+                        presets:["env"],
+                        plugins:["lodash"]//cnpm i babel-babel-plugin-lodash -S,除此之外还要安装babel-core babel-loader babel-preset-env，如果之前没有安装过这些插件的话
+                    
+                }
+            }
+            ]
         }]
     },
     plugins: [
