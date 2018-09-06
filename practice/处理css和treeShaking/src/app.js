@@ -8,7 +8,9 @@ d()
 e()
 let app = document.getElementById('app')
 const varibles = 3
-app.innerHTML = "<div class='"+ base.box +"'></div>"
+var div = document.createElement('div')
+div.className = "box"
+app.appendChild(div)
 import {chunk} from 'lodash'
 console.log(chunk([1,2,3,4,5],2))
 //使用useable后的写法

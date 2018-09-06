@@ -6,6 +6,9 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); /
 const autoPrefixer = require('autoprefixer')()
 const cssNext = require('postcss-cssnext')()
 const uglifyjsWebpackPlugin = require("uglifyjs-webpack-plugin")
+const purifyCss = require('purifycss-webpack')
+const glob = require('glob-all')//处理多路径和purifycss-webpack一起使用
+
 // const cssNano = require('cssnano')
 module.exports = {
     entry: {
@@ -46,7 +49,7 @@ module.exports = {
                         options: {
                             // minimize: true, 压缩效果已经被移除
                             //启用css-modules
-                            modules: true,
+                            // modules: true,
                             // 定义webpack处理过的css名
                             localIdentName: '[path] [name]_[local]_[hash:base64:5]'
                         }
@@ -88,10 +91,18 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].min.css'
         }),
-        new OptimizeCssAssetsPlugin({}),
+        new purifyCss({
+            path:glob.sync([
+                // 一定要定位到某个具体的文件
+                path.join(__dirname,'./*.html'),
+                path.join(__dirname,'./src/*.js')
+            ])
+        }),
+        new OptimizeCssAssetsPlugin({}), 
     ],
     optimization: {
         minimizer: [
+            // 实现treeshaking
             new uglifyjsWebpackPlugin({
                 uglifyOptions: {
                     compress: false
